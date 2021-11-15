@@ -363,3 +363,4 @@ zsdoc/data
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,vim,zsh,pycharm,macos,linux
 
 my_settings.py
+.github
