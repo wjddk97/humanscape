@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 
-from my_settings import SECRET_KEY
+from my_settings import SECRET_KEY, API_KEY, SERVICE_KEY
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,6 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRET_KEY
+API_KEY = API_KEY
+SERVICE_KEY = SERVICE_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'researches'
+    'researches',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -184,3 +187,6 @@ LOGGING = {
         },
     },
 }
+CRONJOBS = [
+    ('* */4 * * *', 'researches.cron.batch_task', '>> ~/humanscape/cron.log 2>&1'),
+]
