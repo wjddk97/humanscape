@@ -66,7 +66,7 @@
 # 4. 모델링
 
 
-![휴먼스케이프 (1)](https://user-images.githubusercontent.com/61782539/141990630-2f97baa9-0a46-440c-a022-80d3054f375e.png)
+<img width="957" alt="스크린샷 2021-11-16 오후 10 07 21" src="https://user-images.githubusercontent.com/61782539/141990762-5f9386d7-159c-4da7-8e92-290ff61206dd.png">
 
 
 
