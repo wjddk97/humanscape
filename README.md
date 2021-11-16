@@ -87,7 +87,8 @@
 
 # 7. UnitTest 결과
 
-![스크린샷 2021-11-16 오후 6.31.01](/Users/macbookpro/Library/Application Support/typora-user-images/스크린샷 2021-11-16 오후 6.31.01.png)
+<img width="779" alt="스크린샷 2021-11-16 오후 6 39 48" src="https://user-images.githubusercontent.com/79758688/141960630-899f8ebb-d097-4380-9812-c1db2983e230.png">
+
 
 # 8 . Reference
 
