@@ -74,11 +74,11 @@
 
 # 5. Postman API 테스트
 
-### API 테스트 : 
+### API 테스트 : https://www.postman.com/cloudy-robot-203980/workspace/humanscape
 
 ### 기본 주소는 배포주소로 되어 있으며, 콜렉션 fork 후 테스트 부탁드립니다.
 
-### API 명세서 : 
+### API 명세서 : https://documenter.getpostman.com/view/17666851/UVC9hkgs
 
 ------
 
