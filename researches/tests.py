@@ -161,61 +161,6 @@ class ResearchAppTest(TestCase):
                 stage_id       = 5,
                 range_id       = 5
             ),
-            Research(
-                id             = 6,
-                number         = 'C6',
-                name           = '테스트6',
-                subject_number = 600,
-                period         = '6년',
-                institution_id = 1,
-                type_id        = 2,
-                stage_id       = 3,
-                range_id       = 4
-            ),
-            Research(
-                id             = 7,
-                number         = 'C7',
-                name           = '테스트7',
-                subject_number = 700,
-                period         = '7년',
-                institution_id = 2,
-                type_id        = 1,
-                stage_id       = 3,
-                range_id       = 4
-            ),
-            Research(
-                id             = 8,
-                number         = 'C8',
-                name           = '테스트8',
-                subject_number = 800,
-                period         = '8년',
-                institution_id = 3,
-                type_id        = 2,
-                stage_id       = 1,
-                range_id       = 4
-            ),
-            Research(
-                id             = 9,
-                number         = 'C9',
-                name           = '테스트9',
-                subject_number = 900,
-                period         = '9년',
-                institution_id = 4,
-                type_id        = 3,
-                stage_id       = 2,
-                range_id       = 1
-            ),
-            Research(
-                id             = 10,
-                number         = 'C10',
-                name           = '테스트10',
-                subject_number = 1000,
-                period         = '10년',
-                institution_id = 1,
-                type_id        = 4,
-                stage_id       = 3,
-                range_id       = 2
-            ),
         ]
         Research.objects.bulk_create(research_list)
     
@@ -226,15 +171,103 @@ class ResearchAppTest(TestCase):
         ResearchType.objects.all().delete()
         ResearchStage.objects.all().delete()
 
-    def test_research_list_get_success(self):
+    def test_research_detail_get_success(self):
         client   = Client()
-        response = client.get('/researches/5')
+        response = client.get('/researches/1')
         self.assertEqual(response.status_code, 200)
-    
-    def test_research_list_get_does_not_exist(self):
+        self.assertEqual(response.json(), {
+          'data' : {
+              'id'                     : 1,
+              '과제번호'               : 'C1',
+              '과제명'                 : '테스트1',
+              '전체목표연구대상자수'   : 100,
+              '연구기간'               : '1년',
+              '연구책임기관'           : '책임기관1',
+              '연구종류'               : '연구타입1',
+              '임상시험단계(연구모형)' : '연구단계1',
+              '연구범위'               : '연구범위1',
+              '생성날짜'               : '2021-11-16',
+              '수정날짜'               : None
+            }
+        })
+
+    def test_research_detail_get_research_does_not_exist(self):
         client   = Client()
-        response = client.get('/researches/20')
-        self.assertEqual(response.status_code, 400)
+        response = client.get('/researches/200')
+        self.assertEqual(response.status_code, 404)
         self.assertEqual(response.json(),{
             'message': 'RESEARCH_DOES_NOT_EXIST'
         })
+
+    def test_research_get_success(self):
+      client = Client()
+      
+      data = [{
+            'id'                     : 1,
+            '과제번호'               : 'C1',
+            '과제명'                 : '테스트1',
+            '전체목표연구대상자수'   : 100,
+            '연구기간'               : '1년',
+            '연구책임기관'           : '책임기관1',
+            '연구종류'               : '연구타입1',
+            '임상시험단계(연구모형)' : '연구단계1',
+            '연구범위'               : '연구범위1',
+            '생성날짜'               : '2021-11-16',
+            '수정날짜'               : None
+          },
+          {
+            'id'                     : 2,
+            '과제번호'               : 'C2',
+            '과제명'                 : '테스트2',
+            '전체목표연구대상자수'   : 200,
+            '연구기간'               : '2년',
+            '연구책임기관'           : '책임기관2',
+            '연구종류'               : '연구타입2',
+            '임상시험단계(연구모형)' : '연구단계2',
+            '연구범위'               : '연구범위2',
+            '생성날짜'               : '2021-11-16',
+            '수정날짜'               : None
+          },
+          {
+            'id'                     : 3,
+            '과제번호'               : 'C3',
+            '과제명'                 : '테스트3',
+            '전체목표연구대상자수'   : 300,
+            '연구기간'               : '3년',
+            '연구책임기관'           : '책임기관3',
+            '연구종류'               : '연구타입3',
+            '임상시험단계(연구모형)' : '연구단계3',
+            '연구범위'               : '연구범위3',
+            '생성날짜'               : '2021-11-16',
+            '수정날짜'               : None
+          },
+          {
+            'id'                     : 4,
+            '과제번호'               : 'C4',
+            '과제명'                 : '테스트4',
+            '전체목표연구대상자수'   : 400,
+            '연구기간'               : '4년',
+            '연구책임기관'           : '책임기관4',
+            '연구종류'               : '연구타입4',
+            '임상시험단계(연구모형)' : '연구단계4',
+            '연구범위'               : '연구범위4',
+            '생성날짜'               : '2021-11-16',
+            '수정날짜'               : None
+          },
+          {
+            'id'                     : 5,
+            '과제번호'               : 'C5',
+            '과제명'                 : '테스트5',
+            '전체목표연구대상자수'   : 500,
+            '연구기간'               : '5년',
+            '연구책임기관'           : '책임기관5',
+            '연구종류'               : '연구타입5',
+            '임상시험단계(연구모형)' : '연구단계5',
+            '연구범위'               : '연구범위5',
+            '생성날짜'               : '2021-11-16',
+            '수정날짜'               : None
+          }]
+
+      response = client.get('/researches')
+      self.assertEqual(response.status_code, 200)
+      self.assertEqual(response.json(),{'data' : data})

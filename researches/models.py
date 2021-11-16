@@ -3,7 +3,7 @@ from django.db   import models
 from core.models import TimeStampModel
 
 class Research(TimeStampModel):
-    number         = models.CharField(max_length=50)
+    number         = models.CharField(max_length=50, unique=True)
     name           = models.CharField(max_length=200)
     subject_number = models.PositiveIntegerField(null=True)
     period         = models.CharField(max_length=50, null=True)
