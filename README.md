@@ -65,7 +65,10 @@
 
 # 4. 모델링
 
-![휴먼스케이프](https://user-images.githubusercontent.com/79758688/141960125-0af2a493-fa1f-4efa-9eaf-38caa72c0862.png)
+
+![휴먼스케이프 (1)](https://user-images.githubusercontent.com/61782539/141990630-2f97baa9-0a46-440c-a022-80d3054f375e.png)
+
+
 
 ------
 
