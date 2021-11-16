@@ -80,6 +80,30 @@
 ------
 
 # 6. 구현 사항 상세 설명
+## 1. GET /researches/{int:research_id} (특정 임상과제 조회)
+- [성공] path parameter로 임상과제 id값을 받아와서 해당 임상과제 정보를 조회합니다. ex) /researches/
+
+![image](https://user-images.githubusercontent.com/79758688/141976381-1f22e6b4-a8c7-4696-b775-29019912c4d3.png)
+
+- [실패] 만약 존재하지 않는 임상과제 id값을 입력할 경우 404 code를 반환해줍니다.
+
+![image](https://user-images.githubusercontent.com/79758688/141976696-499569b9-922f-443b-aa08-bbc4cfa8e049.png)
+
+## 2. GET /researches (전체 임상과제 리스트 조회)
+- [성공] path parameter를 입력하지 않을 경우 전체 임상과제 리스트를 조회합니다. pagination을 20으로 주어 데이터를 20개씩 조회하도록 하였습니다. 
+
+![image](https://user-images.githubusercontent.com/79758688/141977141-76fe2717-9017-4ae5-9396-74763281f65e.png)
+
+## 3. GET /researches?search=당뇨 (과제명으로 검색)
+- [성공] 임상과제 검색 API를 구현했습니다. 먼저 search라는 변수를 데이터로 받아서 검색 기능을 추가했습니다. 검색 필터는 임의로 '과제명'과 '기관명'으로 설정하였습니다.  '당뇨'라는 필터로 검색 시 '과제명'에 '당뇨'가 포함되는 데이터들이 조회됩니다.
+
+![image](https://user-images.githubusercontent.com/79758688/141977978-cde01a72-4558-4cb3-a36e-f1b82add3fd6.png)
+
+## 4. GET /researches?search=서울성모 (기관명으로 검색)
+- '서울성모' 라는 필터로 검색시 '연구기관'에 '서울성모'가 포함된 데이터들이 조회됩니다. 
+
+![image](https://user-images.githubusercontent.com/79758688/141978271-071bad28-b300-4bcd-ad6b-0e8f2dc5aea1.png)
+
 
 
 
