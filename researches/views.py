@@ -1,4 +1,5 @@
-import json
+import requests
+
 from json.decoder           import JSONDecodeError
 from dateutil.relativedelta import relativedelta
 from datetime               import datetime
@@ -7,7 +8,8 @@ from django.views           import View
 from django.db.models       import Q
 from django.http            import JsonResponse
 
-from researches.models import *
+from researches.models      import *
+from humanscape.settings    import API_KEY, SERVICE_KEY 
 
 class ResearchDetailView(View):
     def get(self, request, research_id):
@@ -34,45 +36,65 @@ class ResearchDetailView(View):
             return JsonResponse({'message': 'RESEARCH_DOES_NOT_EXIST'}, status = 404)
 
 class ResearchView(View):
-  def get(self, request):
-      search = request.GET.get('search')
-      period = request.GET.get('period')
-      page   = int(request.GET.get('page', 1))
+    def get(self, request):
+        search = request.GET.get('search')
+        period = request.GET.get('period')
+        page   = int(request.GET.get('page', 1))
 
-      page_size = 20
-      limit     = page_size * page
-      offset    = limit - page_size
+        page_size = 20
+        limit     = page_size * page
+        offset    = limit - page_size
 
-      period_dic = {
+        period_dic = {
                 '1w' : datetime.now() - relativedelta(weeks = 1),
                 '1m' : datetime.now() - relativedelta(months = 1),
                 '3m' : datetime.now() - relativedelta(months = 3),
             }
 
-      research_filter = Q()
+        research_filter = Q()
 
-      if search:
-        research_filter.add(Q(name__icontains=search) | Q(institution__name__icontains=search), Q.AND)
+        if search:
+            research_filter.add(Q(name__icontains=search) | Q(institution__name__icontains=search), Q.AND)
 
-      if period:
-        research_filter.add(Q(updated_at__range=(period_dic.get(period, '1w'), datetime.now())), Q.AND)
+        if period:
+            research_filter.add(Q(updated_at__range=(period_dic.get(period, '1w'), datetime.now())), Q.AND)
 
-      researches = Research.objects.select_related('range', 'institution', 'type', 'stage')\
-                                   .filter(research_filter)\
-                                   .order_by('-created_at')
+        researches = Research.objects.select_related('range', 'institution', 'type', 'stage')\
+                                .filter(research_filter)\
+                                .order_by('-created_at')
 
-      data = [{
-        'id'                     : research.id,
-        '과제번호'               : research.number,
-        '과제명'                 : research.name,
-        '연구책임기관'           : research.institution.name,
-        '전체목표연구대상자수'   : research.subject_number,
-        '연구기간'               : research.period,
-        '연구종류'               : research.type.name,
-        '임상시험단계(연구모형)' : research.stage.name if research.stage else None,
-        '연구범위'               : research.range.name,
-        '수정날짜'               : research.updated_at,
-        '생성날짜'               : research.created_at
-      } for research in researches]
+        data = [{
+            'id'                     : research.id,
+            '과제번호'               : research.number,
+            '과제명'                 : research.name,
+            '연구책임기관'           : research.institution.name,
+            '전체목표연구대상자수'   : research.subject_number,
+            '연구기간'               : research.period,
+            '연구종류'               : research.type.name,
+            '임상시험단계(연구모형)' : research.stage.name if research.stage else None,
+            '연구범위'               : research.range.name,
+            '수정날짜'               : research.updated_at,
+            '생성날짜'               : research.created_at
+        } for research in researches]
 
-      return JsonResponse({'data' : data[offset:limit]}, status = 200) 
+        return JsonResponse({'data' : data[offset:limit]}, status = 200) 
+
+class PublicDataApi(View):
+    def __init__(self):
+        self.api_key = API_KEY 
+        self.service_key = SERVICE_KEY 
+        self.info_url = 'https://api.odcloud.kr/api/3074271/v1/uddi:cfc19dda-6f75-4c57-86a8-bb9c8b103887'
+
+    def get_research_information(self):
+        headers = {"Authorization": self.api_key}
+        params = {
+        'serviceKey' : self.service_key, 
+            'page'       : 1,
+            'perPage'    : 145,
+            'returnType' : 'json'
+        }
+
+        response = requests.get(self.info_url, headers = headers, params = params, timeout = 3)
+        
+        return response 
+
