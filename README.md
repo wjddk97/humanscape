@@ -107,9 +107,21 @@
 
 ![image](https://user-images.githubusercontent.com/79758688/141978271-071bad28-b300-4bcd-ad6b-0e8f2dc5aea1.png)
 
+## 5. Batch task
+![image](https://user-images.githubusercontent.com/75020336/142136955-c8e9b7f4-0cde-4cb2-b4a5-7d599ea367e6.png)
+- 계속해서 업데이트가 필요한 코드는 django에서 지원해주는 django-crontab을 통하여 batch task를 구현하였습니다.
 
+```
+CRONJOBS = [
+    ('* */4 * * *', 'researches.cron.batch_task', '>> ~/humanscape/cron.log 2>&1'),
+]
+```
+- 4시간 마다 researches app에 있는 cron.py파일의 batch_task함수가 실행되고 에러 로그는 cron.log에 기록되도록 하였습니다.
 
-
+## 5-1. 기능
+- 외부 api를 가져오면 기존에 있는 데이터베이스의 값과 비교하여 새로 들어온 연구는 추가해주었습니다.
+- 변경사항이 없는 연구는 값이 들어와도 변하지 않고 변경사항이 있는 정보는 데이터베이스에서 업데이트 해주고 update_at시간을 주었습니다.
+- 
 ------
 
 # 7. UnitTest 결과
