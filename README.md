@@ -109,7 +109,8 @@
 
 ## 5. Batch task
 
-<img src="https://user-images.githubusercontent.com/75020336/142137581-8129e620-aa17-45e6-a7a1-d803d19829c2.png">
+![image](https://user-images.githubusercontent.com/75020336/142137760-f1dae3b4-89f1-4f46-ab02-fb81ab3dc2ef.png)
+
 
 - 계속해서 업데이트가 필요한 코드는 django에서 지원해주는 django-crontab을 통하여 batch task를 구현하였습니다.
 
